@@ -5,12 +5,12 @@ MAINTAINER Grzegorz Gabryel <greg@grzegab.eu>
 
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
-    libpq-dev libzip-dev zlib1g-dev unzip libicu-dev xvfb libfontconfig && \
+    libpq-dev libzip-dev zlib1g-dev unzip libicu-dev  && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install and enable PECL extensions
-RUN pecl install pcov-1.0.11 \
-    && pecl install redis-5.3.7 \
+RUN pecl install pcov \
+    && pecl install redis \
     && docker-php-ext-enable pcov redis
 
 # Install PHP extensions
