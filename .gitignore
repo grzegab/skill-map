@@ -144,7 +144,7 @@ fabric.properties
 /composer.phar
 
 # Backup entities generated with doctrine:generate:entities command
-**/Entity/*~
+src/Infrastructure/Persistent/Entity/*~
 
 # Embedded web-server pid file
 /.web-server-pid
