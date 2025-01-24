@@ -192,3 +192,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+/docker/db/data/
