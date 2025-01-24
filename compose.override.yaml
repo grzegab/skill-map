@@ -1,0 +1,6 @@
+services:
+  database:
+    volumes:
+      - ./docker/db/data:/var/lib/postgresql/data:rw
+    ports:
+      - "5432"

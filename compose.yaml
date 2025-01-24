@@ -1,0 +1,40 @@
+services:
+  nginx:
+    container_name: 'learning_path_nginx'
+    image: nginx:latest
+    volumes:
+      - .:/data/www
+      - ./docker/nginx/symfony.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+
+  php-fpm:
+    container_name: 'learning_path_php'
+    build:
+      context: docker/php
+    volumes:
+      - .:/data/www
+
+  redis:
+    container_name: 'learning_path_redis'
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  
+  database:
+    container_name: 'learning_path_database'
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+
+volumes:
+  database_data:
